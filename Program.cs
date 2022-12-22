@@ -1,3 +1,5 @@
+using DIApi.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,7 +19,9 @@ app.UseHttpsRedirection();
 
 app.MapGet("/getData", () =>
 {
-    return Results.Ok("Test2");
+    var repo = new NoSqlDataRepo();
+
+    return Results.Ok(repo.GetData());
 });
 
 app.Run();
