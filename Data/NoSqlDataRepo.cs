@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DIApi.Data
 {
-    public class NoSqlDataRepo
+    public class NoSqlDataRepo : IDataRepo
     {
         public string GetData()
         {
@@ -15,5 +15,15 @@ namespace DIApi.Data
 
             return ("Data from No SQL DB");
         }
+
+        public string ReturnData()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("--> getting data from no sql server");
+            Console.ResetColor();
+
+            return ("Data from No SQL DB");
+        }
+
     }
 }
