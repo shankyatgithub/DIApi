@@ -8,11 +8,18 @@ namespace DIApi.Data
 {
     public class NoSqlDataRepo : IDataRepo
     {
-        private readonly IDataService _dataService;
-        public NoSqlDataRepo(IDataService dataService)
+
+        //private readonly IDataService _dataService;
+        /*public NoSqlDataRepo(IDataService dataService)
         {
             _dataService = dataService;
 
+        }*/
+
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+        public NoSqlDataRepo(IServiceScopeFactory serviceScopeFactory)
+        {
+            _serviceScopeFactory = serviceScopeFactory;
         }
         public string GetData()
         {
@@ -27,9 +34,15 @@ namespace DIApi.Data
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("--> getting data from no sql server");
-            Console.ResetColor();
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                var dataService = scope.ServiceProvider.GetRequiredService<IDataService>();
+                Console.ResetColor();
+                return dataService.GetProductData("https://test.com/api");
 
-            return (_dataService.GetProductData("https://test.com/api"));
+            }
+
+
         }
 
     }
