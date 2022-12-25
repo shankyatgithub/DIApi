@@ -2,11 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DIApi.DataServices;
 
 namespace DIApi.Data
 {
     public class NoSqlDataRepo : IDataRepo
     {
+        private readonly IDataService _dataService;
+        public NoSqlDataRepo(IDataService dataService)
+        {
+            _dataService = dataService;
+
+        }
         public string GetData()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -22,7 +29,7 @@ namespace DIApi.Data
             Console.WriteLine("--> getting data from no sql server");
             Console.ResetColor();
 
-            return ("Data from No SQL DB");
+            return (_dataService.GetProductData("https://test.com/api"));
         }
 
     }
